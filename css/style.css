@@ -1,0 +1,15 @@
+.corpo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    text-align: center;
+}
+
+.esquerda{
+    background: white;
+}
+
+.centro{
+    background: black;
+    color: white;
+}
