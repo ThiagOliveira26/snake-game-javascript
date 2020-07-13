@@ -10,6 +10,11 @@ snake[0] = {
 }
 let direction = "right"; //inicio do movimento para direita
 
+let food = {
+    x : Math.floor(Math.random() * 15 + 1) * box,
+    y : Math.floor(Math.random() * 15 + 1) * box
+}
+
 function criarBG(){
     ctx.fillStyle = "lightgreen";
     ctx.fillRect(0, 0, 16*box, 16*box);
@@ -20,6 +25,11 @@ function criarCobrinha(){
         ctx.fillStyle = "green";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
     }
+}
+
+function drawFood (){
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, box, box);
 }
 
 //a cada keydown.. que é o evento especificado, vai para funcao update.
@@ -42,6 +52,7 @@ function iniciarJogo(){
 
     criarBG();
     criarCobrinha();  
+    drawFood();
     
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
