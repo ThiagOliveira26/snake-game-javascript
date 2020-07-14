@@ -47,6 +47,8 @@ function update (event){
         if (direction != "right") direction = "left";
         else{
             snake.reverse();
+            if (snake[length-1].y == snake[length-2].y)
+                direction = "right";
             direction = "left";
         }
     }
@@ -54,6 +56,8 @@ function update (event){
         if (direction != "down") direction = "up";
         else{
             snake.reverse();
+            if (snake[length-1].x == snake[length-2].x)
+                direction = "down";
             direction = "up";
         }
     }
@@ -61,6 +65,8 @@ function update (event){
         if (direction != "left") direction = "right";
         else{
             snake.reverse();
+            if (snake[length-1].y == snake[length-2].y)
+                direction = "left";
             direction = "right";
         }
     }
@@ -68,6 +74,8 @@ function update (event){
         if (direction != "up") direction = "down";
         else{
             snake.reverse();
+            if (snake[length-1].x == snake[length-2].x)
+                direction = "up";
             direction = "down";
         }
     }
