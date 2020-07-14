@@ -113,8 +113,21 @@ function iniciarJogo(){
         snake.pop(); //retira o ultimo elemento do array.
     }
     else{
-        food.x = Math.floor(Math.random() * 31 + 1) * box;
-        food.y = Math.floor(Math.random() * 31 + 1) * box;
+        var bad = 0;
+
+        do{
+            var fx = Math.floor(Math.random() * 31 + 1) * box;
+            var fy = Math.floor(Math.random() * 31 + 1) * box;
+
+            for (i=0; i<snake.length;i++){
+                if (fx==snake[i].x && fy==snake[i].y){
+                    bad = 1;    
+                    break;
+                }
+            }
+        }while(bad==1)
+        food.x = fx;
+        food.y = fy;
     }
 
     //a atualizacao da direcao, é a nova cabeça. dando noçao de movimento.
