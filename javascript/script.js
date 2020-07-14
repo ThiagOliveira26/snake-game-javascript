@@ -40,13 +40,9 @@ function drawFood (){
 //a cada keydown.. que é o evento especificado, vai para funcao update.
 document.addEventListener('keydown',update);
 
-//funcao analisa a tecla clicada e verifica se pode ou nao modificar a direcao
+//funcao analisa a tecla clicada para mudar sentido.
 function update (event){
-    /*if(event.keyCode == 37 && direction != "right") direction = "left";
-    if(event.keyCode == 38 && direction != "down") direction = "up";
-    if(event.keyCode == 39 && direction != "left") direction = "right";
-    if(event.keyCode == 40 && direction != "up") direction = "down";*/
-
+    
     if(event.keyCode == 37){
         if (direction != "right") direction = "left";
         else{
@@ -79,10 +75,20 @@ function update (event){
 
 function iniciarJogo(){
     
-    if(snake[0].x > 31 * box ) snake[0].x =0;
-    if(snake[0].x < 0) snake[0].x =32*box;
-    if(snake[0].y > 31 * box) snake[0].y =0;
-    if(snake[0].y < 0 ) snake[0].y =32*box;
+    let bd = document.getElementById("snakeborda").checked;
+    console.log(bd);
+    if (bd != "1"){
+        if(snake[0].x > 31 * box ) snake[0].x =0;
+        if(snake[0].x < 0) snake[0].x =32*box;
+        if(snake[0].y > 31 * box) snake[0].y =0;
+        if(snake[0].y < 0 ) snake[0].y =32*box;
+    }
+    else{
+        if ((snake[0].x > 31 * box ) || (snake[0].x < 0) || (snake[0].y > 31 * box) || (snake[0].y < 0 )){
+            clearInterval(jogo);
+            alert("game over");
+        }
+    }
 
     for (i=1; i< snake.length; i++){
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y){
