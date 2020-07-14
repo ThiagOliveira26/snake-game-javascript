@@ -3,7 +3,7 @@ let ctx = canvas.getContext("2d");
 let box = 16; // tamanho do quadradinho
 let snake = []; //criando a cobrinha como lista
 
-//posicao 8 para ser criado no centro do jogo.
+//posicao 16 para ser criado no centro do jogo.
 snake[0] = {
     x: 16*box,
     y: 16*box
@@ -16,16 +16,19 @@ let food = {
 }
 
 function criarBG(){
-    ctx.fillStyle = "lightgreen";
+    ctx.fillStyle = "#D3D3D3";
     ctx.fillRect(0, 0, 32*box, 32*box);
 }
 
 function criarCobrinha(){
-        ctx.fillStyle = "blue";
+        ctx.strokeStyle = "#363636";
+        ctx.strokeRect(snake[0].x, snake[0].y, box, box);
+        ctx.fillStyle = "#696969";
         ctx.fillRect(snake[0].x, snake[0].y, box, box);
     for (i=1;i<snake.length;i++){
-        ctx.fillStyle = "green";
+        ctx.fillStyle = "gray";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
     }
 }
 
@@ -39,10 +42,39 @@ document.addEventListener('keydown',update);
 
 //funcao analisa a tecla clicada e verifica se pode ou nao modificar a direcao
 function update (event){
-    if(event.keyCode == 37 && direction != "right") direction = "left";
+    /*if(event.keyCode == 37 && direction != "right") direction = "left";
     if(event.keyCode == 38 && direction != "down") direction = "up";
     if(event.keyCode == 39 && direction != "left") direction = "right";
-    if(event.keyCode == 40 && direction != "up") direction = "down";
+    if(event.keyCode == 40 && direction != "up") direction = "down";*/
+
+    if(event.keyCode == 37){
+        if (direction != "right") direction = "left";
+        else{
+            snake.reverse();
+            direction = "left";
+        }
+    }
+    if(event.keyCode == 38){
+        if (direction != "down") direction = "up";
+        else{
+            snake.reverse();
+            direction = "up";
+        }
+    }
+    if(event.keyCode == 39 ){
+        if (direction != "left") direction = "right";
+        else{
+            snake.reverse();
+            direction = "right";
+        }
+    }
+    if(event.keyCode == 40){
+        if (direction != "up") direction = "down";
+        else{
+            snake.reverse();
+            direction = "down";
+        }
+    }
 }
 
 function iniciarJogo(){
