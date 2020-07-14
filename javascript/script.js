@@ -1,27 +1,29 @@
 let canvas = document.getElementById("snake");
 let ctx = canvas.getContext("2d");
-let box = 32; // tamanho do quadradinho
+let box = 16; // tamanho do quadradinho
 let snake = []; //criando a cobrinha como lista
 
 //posicao 8 para ser criado no centro do jogo.
 snake[0] = {
-    x: 8*box,
-    y: 8*box
+    x: 16*box,
+    y: 16*box
 }
 let direction = "right"; //inicio do movimento para direita
 
 let food = {
-    x : Math.floor(Math.random() * 15 + 1) * box,
-    y : Math.floor(Math.random() * 15 + 1) * box
+    x : Math.floor(Math.random() * 31 + 1) * box,
+    y : Math.floor(Math.random() * 31 + 1) * box
 }
 
 function criarBG(){
     ctx.fillStyle = "lightgreen";
-    ctx.fillRect(0, 0, 16*box, 16*box);
+    ctx.fillRect(0, 0, 32*box, 32*box);
 }
 
 function criarCobrinha(){
-    for (i=0;i<snake.length;i++){
+        ctx.fillStyle = "blue";
+        ctx.fillRect(snake[0].x, snake[0].y, box, box);
+    for (i=1;i<snake.length;i++){
         ctx.fillStyle = "green";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
     }
@@ -45,10 +47,10 @@ function update (event){
 
 function iniciarJogo(){
     
-    if(snake[0].x > 15 * box ) snake[0].x =0;
-    if(snake[0].x < 0) snake[0].x =16*box;
-    if(snake[0].y > 15 * box) snake[0].y =0;
-    if(snake[0].y < 0 ) snake[0].y =16*box;
+    if(snake[0].x > 31 * box ) snake[0].x =0;
+    if(snake[0].x < 0) snake[0].x =32*box;
+    if(snake[0].y > 31 * box) snake[0].y =0;
+    if(snake[0].y < 0 ) snake[0].y =32*box;
 
     for (i=1; i< snake.length; i++){
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y){
@@ -73,14 +75,9 @@ function iniciarJogo(){
         snake.pop(); //retira o ultimo elemento do array.
     }
     else{
-        food.x = Math.floor(Math.random() * 15 + 1) * box;
-        food.y = Math.floor(Math.random() * 15 + 1) * box;
+        food.x = Math.floor(Math.random() * 31 + 1) * box;
+        food.y = Math.floor(Math.random() * 31 + 1) * box;
     }
-
-
-    
-
-
 
     //a atualizacao da direcao, é a nova cabeça. dando noçao de movimento.
     let newHead = {
