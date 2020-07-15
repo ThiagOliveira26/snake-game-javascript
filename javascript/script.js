@@ -42,33 +42,91 @@ document.addEventListener('keydown',update);
 
 //funcao analisa a tecla clicada para mudar sentido.
 function update (event){
-    
+
+        if (snake.length > 2){
+        var xFim = (snake[snake.length-1].x == snake[snake.length-2].x);
+        var yFim = (snake[snake.length-1].y == snake[snake.length-2].y);
+        var xInicio = (snake[0].x == snake[1].x);
+        var yInicio = (snake[0].y == snake[1].y);
+        console.log("xFim"+xFim);
+        //console.log('yFim'+yFim);
+        console.log("xInicio"+xInicio);
+        //console.log('yInicio'+yInicio);
+        console.log('cabeca'+ (snake[0].y != snake[snake.length-1].y));
+        console.log('tamanho'+(snake[snake.length-1].y > snake[snake.length-2].y));
+        console.log('=='+((xFim) && (xInicio) && (snake[0].x != snake[snake.length-1].x) &&
+        (snake[snake.length-1].y < snake[snake.length-2].y)))
+        }
     if(event.keyCode == 37){
         if (direction != "right") direction = "left";
         else{
-            snake.reverse();
-            direction = "left";
+            if (snake.length < 4){
+                snake.reverse();
+                direction = "left";
+            }
+            else{
+                if ((yFim) && (yInicio) && (snake[0].y != snake[snake.length-1].y) &&
+                    (snake[snake.length-1].x > snake[snake.length-2].x))
+                    snake.reverse();
+                else{
+                    snake.reverse();
+                    direction = "left";
+                }
+            }
         }
     }
     if(event.keyCode == 38){
         if (direction != "down") direction = "up";
         else{
-            snake.reverse();
-            direction = "up";
+            if (snake.length < 4){
+                snake.reverse();
+                direction = "up";
+            }
+            else{
+                if ((xFim) && (xInicio) && (snake[0].x != snake[snake.length-1].x) &&
+                    (snake[snake.length-1].y > snake[snake.length-2].y))
+                    snake.reverse();
+                else{
+                    snake.reverse();
+                    direction = "up";
+                }
+            }
         }
     }
     if(event.keyCode == 39 ){
         if (direction != "left") direction = "right";
         else{
-            snake.reverse();
-            direction = "right";
+            if (snake.length < 4){
+                snake.reverse();
+                direction = "right";
+            }
+            else{
+                if ((yFim) && (yInicio) && (snake[0].y != snake[snake.length-1].y) &&
+                    (snake[snake.length-1].x < snake[snake.length-2].x))
+                    snake.reverse();
+                else{
+                    snake.reverse();
+                    direction = "right";
+                }
+            }
         }
     }
     if(event.keyCode == 40){
         if (direction != "up") direction = "down";
         else{
-            snake.reverse();
-            direction = "down";
+            if (snake.length < 4){
+                snake.reverse();
+                direction = "down";
+            }
+            else{
+                if ((xFim) && (xInicio) && (snake[0].x != snake[snake.length-1].x) &&
+                    (snake[snake.length-1].y < snake[snake.length-2].y))
+                    snake.reverse();
+                else{
+                    snake.reverse();
+                    direction = "down";
+                }
+            }
         }
     }
 }
