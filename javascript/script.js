@@ -2,7 +2,8 @@ let canvas = document.getElementById("snake");
 let ctx = canvas.getContext("2d");
 let box = 16; // tamanho do quadradinho
 let snake = []; //criando a cobrinha como lista
-
+var GameOver = false;
+var pontos = 0;
 //posicao 16 para ser criado no centro do jogo.
 snake[0] = {
     x: 16*box,
@@ -48,14 +49,6 @@ function update (event){
         var yFim = (snake[snake.length-1].y == snake[snake.length-2].y);
         var xInicio = (snake[0].x == snake[1].x);
         var yInicio = (snake[0].y == snake[1].y);
-        console.log("xFim"+xFim);
-        //console.log('yFim'+yFim);
-        console.log("xInicio"+xInicio);
-        //console.log('yInicio'+yInicio);
-        console.log('cabeca'+ (snake[0].y != snake[snake.length-1].y));
-        console.log('tamanho'+(snake[snake.length-1].y > snake[snake.length-2].y));
-        console.log('=='+((xFim) && (xInicio) && (snake[0].x != snake[snake.length-1].x) &&
-        (snake[snake.length-1].y < snake[snake.length-2].y)))
         }
     if(event.keyCode == 37){
         if (direction != "right") direction = "left";
@@ -134,7 +127,7 @@ function update (event){
 function iniciarJogo(){
     
     let bd = document.getElementById("snakeborda").checked;
-    console.log(bd);
+
     if (bd != "1"){
         if(snake[0].x > 31 * box ) snake[0].x =0;
         if(snake[0].x < 0) snake[0].x =32*box;
@@ -142,17 +135,13 @@ function iniciarJogo(){
         if(snake[0].y < 0 ) snake[0].y =32*box;
     }
     else{
-        if ((snake[0].x > 31 * box ) || (snake[0].x < 0) || (snake[0].y > 31 * box) || (snake[0].y < 0 )){
-            clearInterval(jogo);
-            alert("game over");
-        }
+        if ((snake[0].x > 31 * box ) || (snake[0].x < 0) || (snake[0].y > 31 * box) || (snake[0].y < 0 ))
+            FimDeJogo();
     }
 
     for (i=1; i< snake.length; i++){
-        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y){
-            clearInterval(jogo);
-            alert("game over");
-        }
+        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y)
+            FimDeJogo();
     }
 
     criarBG();
@@ -186,6 +175,7 @@ function iniciarJogo(){
         }while(bad==1)
         food.x = fx;
         food.y = fy;
+        Pontuacao();
     }
 
     //a atualizacao da direcao, é a nova cabeça. dando noçao de movimento.
@@ -197,4 +187,61 @@ function iniciarJogo(){
     snake.unshift(newHead);
 }
 
-let jogo = setInterval(iniciarJogo, 100);
+//verifica checkbox
+let bStart = document.getElementById("startStop");
+if (bStart.value == '1')
+    var jogo = setInterval(iniciarJogo, 100);
+
+if (bStart.innerHTML == 'Restart'){
+    bStart.value = '0';
+    GameOver = false;
+    snake[0] = {
+        x: 16*box,
+        y: 16*box
+    }
+    direction = "right";
+    iniciarJogo();
+}
+
+function ModifyBtn(){
+    if (!GameOver){
+        if (bStart.value == '1'){
+            clearInterval(jogo);
+            bStart.value = '0';
+            bStart.innerHTML = 'Continuar';
+        }
+        else{
+            jogo = setInterval(iniciarJogo, 100);
+            bStart.value = '1';
+            bStart.innerHTML = 'Pausar';
+        }
+    }
+    if (bStart.innerHTML == 'Restart'){
+        pontos = 0;
+        document.getElementById("score").innerHTML = pontos;
+        bStart.value = '0';
+        GameOver = false;
+        snake = [];
+        snake[0] = {
+            x: 16*box,
+            y: 16*box
+        }
+        direction = "right";
+        bStart.innerHTML = 'Start';
+        iniciarJogo();
+    }
+}
+
+function FimDeJogo(){
+    alert("Pontuação Final: "+pontos);
+    clearInterval(jogo);
+    GameOver = true;
+    bStart.innerHTML = 'Restart';
+    alert("game over");
+}
+
+function Pontuacao(){
+    pontos = pontos + 10;
+    let p = document.getElementById("score");
+    p.innerHTML = pontos;
+}

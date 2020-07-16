@@ -10,4 +10,6 @@ alterações realizadas:
 - acréscimo de borda;
 - cobrinha consegue mudar de sentido estando na mesma direção;
 - possibilidade de colocar borda limitante;
-- comidinha não nasce "dentro" da cobrinha.
+- comidinha não nasce "dentro" da cobrinha;
+- pontuacao;
+- restart sem F5 na página.
